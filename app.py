@@ -28,7 +28,7 @@ default_query_context = {
     "Competition": "EPL",
     "Grade": "AA",
     "Market": "WDW",
-    "TimeBased": "1440",
+    "TimeBased": "120",
     "Cohort": "Cohort A"
 }
 
@@ -47,11 +47,11 @@ st.header("⚖️ Entity Weightings")
 
 default_weights = {
     "Brand": 1,
-    "Sport": 2,
-    "Competition": 5,
+    "Sport": 1,
+    "Competition": 1,
     "Grade": 3,
-    "Market": 7,
-    "TimeBased": 15,
+    "Market": 4,
+    "TimeBased": 5,
     "Cohort": 6
 }
 
@@ -113,8 +113,6 @@ rules_data = st.data_editor(
 # --- Run Matching ---
 if st.button("▶️ Run Matching"):
     try:
-        query_values = list(query_context.values())
-
         # Helper functions
         def extract_entity_value(entry):
             entity, value = entry.split(":", 1)
@@ -123,9 +121,12 @@ if st.button("▶️ Run Matching"):
         def compute_score(permutation):
             return sum(entity_weights.get(entity, 0) for entity, _ in map(extract_entity_value, permutation))
 
+        # New logic: match only if every entity in the rule matches query context exactly
         def matches_query(permutation):
-            values = [v for _, v in map(extract_entity_value, permutation)]
-            return any(q in values for q in query_values)
+            for entity, value in map(extract_entity_value, permutation):
+                if query_context.get(entity) != value:
+                    return False
+            return True
 
         def includes_brand_and_sport(permutation):
             entities = [e for e, _ in map(extract_entity_value, permutation)]

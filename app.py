@@ -8,10 +8,6 @@ st.set_page_config(page_title="Strategy Rule Matcher", page_icon="🎯")
 st.title("🎯 Strategy Rule Matcher")
 st.markdown("Match your query context against rules, with dropdown and slider-based inputs.")
 
-# --- Session state setup (important for Reset functionality) ---
-if "reset" not in st.session_state:
-    st.session_state.reset = False
-
 st.header("🔧 Query Context")
 
 # --- Predefined options for each entity ---
@@ -39,14 +35,11 @@ default_query_context = {
 # --- Query Context Dropdowns ---
 query_context = {}
 for entity, options in entity_options.items():
-    if st.session_state.reset:
-        selection = options[0]
-    else:
-        selection = st.selectbox(
-            f"{entity}:",
-            options,
-            index=options.index(default_query_context.get(entity, options[0]))
-        )
+    selection = st.selectbox(
+        f"{entity}:",
+        options,
+        index=options.index(default_query_context.get(entity, options[0]))
+    )
     query_context[entity] = selection
 
 # --- Entity Weightings with Sliders ---
@@ -64,15 +57,12 @@ default_weights = {
 
 entity_weights = {}
 for entity in entity_options.keys():
-    if st.session_state.reset:
-        weight = default_weights.get(entity, 1)
-    else:
-        weight = st.slider(
-            f"Weight for {entity}",
-            min_value=0,
-            max_value=10,
-            value=default_weights.get(entity, 1)
-        )
+    weight = st.slider(
+        f"Weight for {entity}",
+        min_value=0,
+        max_value=10,
+        value=default_weights.get(entity, 1)
+    )
     entity_weights[entity] = weight
 
 # --- Default Rules ---
@@ -96,34 +86,16 @@ default_rules = pd.DataFrame({
 })
 
 st.subheader("📋 Define Your Rules")
-if st.session_state.reset:
-    rules_data = default_rules.copy()
-else:
-    rules_data = st.data_editor(
-        default_rules,
-        use_container_width=True,
-        num_rows="dynamic",
-        height=400
-    )
+rules_data = st.data_editor(
+    default_rules,
+    use_container_width=True,
+    num_rows="dynamic",
+    height=400
+)
 
-# --- Buttons Section ---
-col1, col2 = st.columns(2)
-
-with col1:
-    run_matching = st.button("▶️ Run Matching")
-
-with col2:
-    reset_inputs = st.button("🔄 Reset Inputs")
-
-# --- Reset Inputs Logic ---
-if reset_inputs:
-    st.session_state.reset = True
-    st.rerun()
-
-# --- Matching Logic ---
-if run_matching:
+# --- Run Matching ---
+if st.button("▶️ Run Matching"):
     try:
-        # Flatten query context into a list of just values
         query_values = list(query_context.values())
 
         # Helper functions

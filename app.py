@@ -118,7 +118,7 @@ with col2:
 # --- Reset Inputs Logic ---
 if reset_inputs:
     st.session_state.reset = True
-    st.experimental_rerun()
+    st.rerun()
 
 # --- Matching Logic ---
 if run_matching:

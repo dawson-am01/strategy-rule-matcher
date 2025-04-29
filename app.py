@@ -6,7 +6,7 @@ import json
 st.set_page_config(page_title="Strategy Rule Matcher", page_icon="🎯")
 
 st.title("🎯 Strategy Rule Matcher")
-st.markdown("Match your query context against rules, with dynamic scoring and dropdown-based inputs.")
+st.markdown("Match your query context against rules, with dropdown and slider-based inputs.")
 
 st.header("🔧 Query Context")
 
@@ -27,11 +27,14 @@ for entity, options in entity_options.items():
     selection = st.selectbox(f"{entity}:", options, index=0)
     query_context[entity] = selection
 
-# --- Weightings Input ---
+# --- Entity Weightings with Sliders ---
 st.header("⚖️ Entity Weightings")
-weightings_input = st.text_area(
-    "Weights (JSON format)", 
-    value=json.dumps({
+
+st.markdown("Adjust the importance (weight) for each entity. Higher numbers mean more influence.")
+
+entity_weights = {}
+for entity in entity_options.keys():
+    default_weight = {
         "Brand": 1,
         "Sport": 1,
         "Competition": 1,
@@ -39,8 +42,15 @@ weightings_input = st.text_area(
         "Market": 4,
         "TimeBased": 5,
         "Cohort": 6
-    }, indent=2)
-)
+    }.get(entity, 1)
+
+    weight = st.slider(
+        f"Weight for {entity}",
+        min_value=0,
+        max_value=10,
+        value=default_weight
+    )
+    entity_weights[entity] = weight
 
 # --- Rules Input using st.data_editor ---
 st.subheader("📋 Define Your Rules")
@@ -75,7 +85,6 @@ if st.button("▶️ Run Matching"):
     try:
         # Flatten query context into a list of just values
         query_values = list(query_context.values())
-        weightings = json.loads(weightings_input)
 
         # Helper functions
         def extract_entity_value(entry):
@@ -83,7 +92,7 @@ if st.button("▶️ Run Matching"):
             return entity.strip(), value.strip()
 
         def compute_score(permutation):
-            return sum(weightings.get(entity, 0) for entity, _ in map(extract_entity_value, permutation))
+            return sum(entity_weights.get(entity, 0) for entity, _ in map(extract_entity_value, permutation))
 
         def matches_query(permutation):
             values = [v for _, v in map(extract_entity_value, permutation)]

@@ -6,19 +6,31 @@ import json
 st.set_page_config(page_title="Strategy Rule Matcher", page_icon="🎯")
 
 st.title("🎯 Strategy Rule Matcher")
-st.markdown("Match your query context against rules, with dynamic scoring and easy rule editing.")
+st.markdown("Match your query context against rules, with dynamic scoring and dropdown-based inputs.")
 
-st.header("🔧 Settings")
+st.header("🔧 Query Context")
 
-# --- Query Context Input ---
-query_context_input = st.text_area(
-    "Query Context (comma-separated values)", 
-    value="Brand 1, American Football, NFL, AA, 360, Cohort B"
-)
+# --- Predefined options for each entity ---
+entity_options = {
+    "Brand": ["Brand 1", "Brand 2"],
+    "Sport": ["Basketball", "Football", "American Football"],
+    "Competition": ["NBA", "NFL", "La Liga", "EPL"],
+    "Grade": ["A", "C", "AA"],
+    "Market": ["Market 3", "First GS", "WDW"],
+    "TimeBased": ["30", "120", "360", "1440", "Live"],
+    "Cohort": ["Cohort A", "Cohort B"]
+}
+
+# --- Dropdowns for each entity ---
+query_context = {}
+for entity, options in entity_options.items():
+    selection = st.selectbox(f"{entity}:", options, index=0)
+    query_context[entity] = selection
 
 # --- Weightings Input ---
+st.header("⚖️ Entity Weightings")
 weightings_input = st.text_area(
-    "Entity Weightings (JSON format)", 
+    "Weights (JSON format)", 
     value=json.dumps({
         "Brand": 1,
         "Sport": 1,
@@ -61,8 +73,8 @@ rules_data = st.data_editor(
 # --- Run Button ---
 if st.button("▶️ Run Matching"):
     try:
-        # Parse Inputs
-        query_context = [s.strip() for s in query_context_input.split(",") if s.strip()]
+        # Flatten query context into a list of just values
+        query_values = list(query_context.values())
         weightings = json.loads(weightings_input)
 
         # Helper functions
@@ -75,7 +87,7 @@ if st.button("▶️ Run Matching"):
 
         def matches_query(permutation):
             values = [v for _, v in map(extract_entity_value, permutation)]
-            return any(q in values for q in query_context)
+            return any(q in values for q in query_values)
 
         def includes_brand_and_sport(permutation):
             entities = [e for e, _ in map(extract_entity_value, permutation)]

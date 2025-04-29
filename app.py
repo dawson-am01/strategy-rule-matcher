@@ -13,7 +13,7 @@ st.header("🔧 Settings")
 # --- Query Context Input ---
 query_context_input = st.text_area(
     "Query Context (comma-separated values)", 
-    value="Brand 1, Basketball, NBA, A, 24 hours, Cohort B"
+    value="Brand 1, American Football, NFL, AA, 360, Cohort B"
 )
 
 # --- Weightings Input ---
@@ -21,25 +21,25 @@ weightings_input = st.text_area(
     "Entity Weightings (JSON format)", 
     value=json.dumps({
         "Brand": 1,
-        "Sport": 2,
-        "Competition": 4,
+        "Sport": 1,
+        "Competition": 1,
         "Grade": 3,
-        "Market": 7,
-        "TimeBased": 15,
-        "Cohort": 20
+        "Market": 4,
+        "TimeBased": 5,
+        "Cohort": 6
     }, indent=2)
 )
 
-# --- Rules Input using New st.data_editor ---
+# --- Rules Input using st.data_editor ---
 st.subheader("📋 Define Your Rules")
 default_rules = pd.DataFrame({
     "Permutation": [
         "Brand:Brand 1, Sport:Basketball",
-        "Grade:A, Market:Market 3",
-        "TimeBased:24 hours, Sport:Football, Competition:NFL",
+        "Grade:AA, Market:First GS",
+        "TimeBased:360, Sport:American Football, Competition:NFL",
         "Brand:Brand 2, Grade:C, Cohort:Cohort A",
-        "Brand:Brand 1, Sport:Basketball, Competition:NBA",
-        "Brand:Brand 1, Competition:NBA"
+        "Brand:Brand 1, Sport:Basketball, Competition:La Liga",
+        "Brand:Brand 1, Competition:EPL, Market:WDW"
     ],
     "Strategy": [
         "strategy_01",
@@ -58,7 +58,7 @@ rules_data = st.data_editor(
     height=400
 )
 
-# --- Button to Run Matching ---
+# --- Run Button ---
 if st.button("▶️ Run Matching"):
     try:
         # Parse Inputs

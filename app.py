@@ -21,12 +21,12 @@ weightings_input = st.text_area(
     "Entity Weightings (JSON format)", 
     value=json.dumps({
         "Brand": 1,
-        "Sport": 1,
-        "Competition": 1,
+        "Sport": 2,
+        "Competition": 4,
         "Grade": 3,
-        "Market": 4,
-        "TimeBased": 5,
-        "Cohort": 6
+        "Market": 7,
+        "TimeBased": 15,
+        "Cohort": 20
     }, indent=2)
 )
 

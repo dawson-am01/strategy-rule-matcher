@@ -8,6 +8,10 @@ st.set_page_config(page_title="Strategy Rule Matcher", page_icon="🎯")
 st.title("🎯 Strategy Rule Matcher")
 st.markdown("Match your query context against rules, with dropdown and slider-based inputs.")
 
+# --- Session state setup (important for Reset functionality) ---
+if "reset" not in st.session_state:
+    st.session_state.reset = False
+
 st.header("🔧 Query Context")
 
 # --- Predefined options for each entity ---
@@ -21,39 +25,57 @@ entity_options = {
     "Cohort": ["Cohort A", "Cohort B"]
 }
 
-# --- Dropdowns for each entity ---
+# --- Default selections ---
+default_query_context = {
+    "Brand": "Brand 1",
+    "Sport": "Basketball",
+    "Competition": "NBA",
+    "Grade": "A",
+    "Market": "Market 3",
+    "TimeBased": "30",
+    "Cohort": "Cohort A"
+}
+
+# --- Query Context Dropdowns ---
 query_context = {}
 for entity, options in entity_options.items():
-    selection = st.selectbox(f"{entity}:", options, index=0)
+    if st.session_state.reset:
+        selection = options[0]
+    else:
+        selection = st.selectbox(
+            f"{entity}:",
+            options,
+            index=options.index(default_query_context.get(entity, options[0]))
+        )
     query_context[entity] = selection
 
 # --- Entity Weightings with Sliders ---
 st.header("⚖️ Entity Weightings")
 
-st.markdown("Adjust the importance (weight) for each entity. Higher numbers mean more influence.")
+default_weights = {
+    "Brand": 1,
+    "Sport": 1,
+    "Competition": 1,
+    "Grade": 3,
+    "Market": 4,
+    "TimeBased": 5,
+    "Cohort": 6
+}
 
 entity_weights = {}
 for entity in entity_options.keys():
-    default_weight = {
-        "Brand": 1,
-        "Sport": 1,
-        "Competition": 1,
-        "Grade": 3,
-        "Market": 4,
-        "TimeBased": 5,
-        "Cohort": 6
-    }.get(entity, 1)
-
-    weight = st.slider(
-        f"Weight for {entity}",
-        min_value=0,
-        max_value=10,
-        value=default_weight
-    )
+    if st.session_state.reset:
+        weight = default_weights.get(entity, 1)
+    else:
+        weight = st.slider(
+            f"Weight for {entity}",
+            min_value=0,
+            max_value=10,
+            value=default_weights.get(entity, 1)
+        )
     entity_weights[entity] = weight
 
-# --- Rules Input using st.data_editor ---
-st.subheader("📋 Define Your Rules")
+# --- Default Rules ---
 default_rules = pd.DataFrame({
     "Permutation": [
         "Brand:Brand 1, Sport:Basketball",
@@ -73,15 +95,33 @@ default_rules = pd.DataFrame({
     ]
 })
 
-rules_data = st.data_editor(
-    default_rules,
-    use_container_width=True,
-    num_rows="dynamic",
-    height=400
-)
+st.subheader("📋 Define Your Rules")
+if st.session_state.reset:
+    rules_data = default_rules.copy()
+else:
+    rules_data = st.data_editor(
+        default_rules,
+        use_container_width=True,
+        num_rows="dynamic",
+        height=400
+    )
 
-# --- Run Button ---
-if st.button("▶️ Run Matching"):
+# --- Buttons Section ---
+col1, col2 = st.columns(2)
+
+with col1:
+    run_matching = st.button("▶️ Run Matching")
+
+with col2:
+    reset_inputs = st.button("🔄 Reset Inputs")
+
+# --- Reset Inputs Logic ---
+if reset_inputs:
+    st.session_state.reset = True
+    st.experimental_rerun()
+
+# --- Matching Logic ---
+if run_matching:
     try:
         # Flatten query context into a list of just values
         query_values = list(query_context.values())

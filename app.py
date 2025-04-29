@@ -16,7 +16,7 @@ entity_options = {
     "Sport": ["Basketball", "Football", "American Football"],
     "Competition": ["NBA", "NFL", "La Liga", "EPL"],
     "Grade": ["A", "C", "AA"],
-    "Market": ["Market 3", "First GS", "WDW"],
+    "Market": ["Market 3", "First GS", "WDW", "Win-Draw-Win"],
     "TimeBased": ["30", "120", "360", "1440", "Live"],
     "Cohort": ["Cohort A", "Cohort B"]
 }
@@ -24,11 +24,11 @@ entity_options = {
 # --- Default selections ---
 default_query_context = {
     "Brand": "Brand 1",
-    "Sport": "Basketball",
-    "Competition": "NBA",
-    "Grade": "A",
-    "Market": "Market 3",
-    "TimeBased": "30",
+    "Sport": "Football",
+    "Competition": "EPL",
+    "Grade": "AA",
+    "Market": "WDW",
+    "TimeBased": "1440",
     "Cohort": "Cohort A"
 }
 
@@ -65,26 +65,43 @@ for entity in entity_options.keys():
     )
     entity_weights[entity] = weight
 
-# --- Default Rules ---
+# --- Default Rules (from your updated spreadsheet) ---
 default_rules = pd.DataFrame({
     "Permutation": [
-        "Brand:Brand 1, Sport:Basketball",
-        "Grade:AA, Market:First GS",
-        "TimeBased:360, Sport:American Football, Competition:NFL",
-        "Brand:Brand 2, Grade:C, Cohort:Cohort A",
-        "Brand:Brand 1, Sport:Basketball, Competition:La Liga",
-        "Brand:Brand 1, Competition:EPL, Market:WDW"
+        "Brand:Brand 1, Sport:Football, Grade:AA, Market:WDW, TimeBased:1440",
+        "Brand:Brand 1, Sport:Football, Grade:AA, Market:WDW, TimeBased:360",
+        "Brand:Brand 1, Sport:Football, Grade:AA, Market:WDW, TimeBased:120",
+        "Brand:Brand 1, Sport:Football, Grade:AA, Market:WDW, TimeBased:30",
+        "Brand:Brand 1, Sport:Football, Grade:AA, Market:WDW, TimeBased:Live",
+        "Brand:Brand 1, Sport:Football, Grade:AA, Market:First GS",
+        "Brand:Brand 1, Sport:Football, Grade:AA, Market:First GS, TimeBased:Live",
+        "Brand:Brand 1, Sport:Football, Grade:AA, TimeBased:120",
+        "Brand:Brand 1, Sport:Football, Grade:AA, TimeBased:30",
+        "Brand:Brand 1, Sport:Football, Grade:AA, TimeBased:Live",
+        "Brand:Brand 1, Sport:Football, Grade:AA",
+        "Brand:Brand 1, Sport:Football, Competition:La Liga, TimeBased:120",
+        "Brand:Brand 1, Sport:Football, Competition:La Liga, TimeBased:30",
+        "Brand:Brand 1, Sport:Football, Competition:La Liga, TimeBased:Live",
+        "Brand:Brand 1, Sport:Football, Competition:EPL, Market:WDW, TimeBased:1440",
+        "Brand:Brand 1, Sport:Football, Competition:EPL, Market:WDW",
+        "Brand:Brand 1, Sport:Football, Competition:EPL, Market:WDW, TimeBased:Live",
+        "Brand:Brand 1, Sport:Football, Market:WDW",
+        "Brand:Brand 1, Sport:Football, Market:WDW, TimeBased:30",
+        "Brand:Brand 1, Sport:Football, Market:WDW, TimeBased:Live",
+        "Brand:Brand 1, Sport:Football, Market:First GS",
+        "Brand:Brand 1, Sport:Football, Market:First GS, TimeBased:Live",
+        "Brand:Brand 1, Sport:Football",
+        "Brand:Brand 1, Sport:Football, Competition:EPL, TimeBased:1440"
     ],
     "Strategy": [
-        "strategy_01",
-        "strategy_02",
-        None,
-        "strategy_03",
-        "strategy_04",
-        "strategy_05"
+        "3WAY_2", "3WAY_3", "3WAY_4", "3WAY_5", "3WAY_6", "3WAY_7", "3WAY_8", "3WAY_9",
+        "3WAY_10", "3WAY_11", "3WAY_12", "3WAY_13", "3WAY_14", "3WAY_15", "3WAY_16",
+        "3WAY_17", "3WAY_18", "3WAY_19", "3WAY_20", "3WAY_21", "3WAY_22", "3WAY_23",
+        "3WAY_24", "3WAY_25"
     ]
 })
 
+# --- Rule Editor ---
 st.subheader("📋 Define Your Rules")
 rules_data = st.data_editor(
     default_rules,
@@ -129,8 +146,8 @@ if st.button("▶️ Run Matching"):
         # Apply filtering
         matched_rules = []
         for rule in rules:
-            perm = rule.get("permutation", [])
-            strategy = rule.get("strategy")
+            perm = rule["permutation"]
+            strategy = rule["strategy"]
             if strategy is None:
                 continue
             if not matches_query(perm):

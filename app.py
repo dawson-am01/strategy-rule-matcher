@@ -47,11 +47,11 @@ st.header("⚖️ Entity Weightings")
 
 default_weights = {
     "Brand": 1,
-    "Sport": 1,
-    "Competition": 1,
+    "Sport": 2,
+    "Competition": 5,
     "Grade": 3,
-    "Market": 4,
-    "TimeBased": 5,
+    "Market": 7,
+    "TimeBased": 15,
     "Cohort": 6
 }
 

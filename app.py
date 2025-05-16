@@ -17,7 +17,7 @@ entity_options = {
     "Competition": ["NBA", "NFL", "La Liga", "EPL"],
     "Grade": ["A", "C", "AA", "AMF_NFL"],
     "Market": ["Market 3", "First GS", "WDW", "Win-Draw-Win", "Anytime TDS"],
-    "TimeBased": ["30", "120", "360", "600", "1440", "150", "Live", "Pre Live"],
+    "TimeBased": ["30", "150", "360", "480", "600", "1440", "2880", "4320", "8640", "Live", "Pre Live"],
     "Cohort": ["Cohort A", "Cohort B"]
 }
 

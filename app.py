@@ -16,7 +16,7 @@ entity_options = {
     "Sport": ["Basketball", "Football", "American Football"],
     "Competition": ["NBA", "NFL", "La Liga", "EPL"],
     "Grade": ["A", "C", "AA"],
-    "Market": ["Market 3", "First GS", "WDW", "Win-Draw-Win"],
+    "Market": ["Market 3", "First GS", "WDW"],
     "TimeBased": ["30", "120", "360", "1440", "Live"],
     "Cohort": ["Cohort A", "Cohort B"]
 }
@@ -73,8 +73,8 @@ default_rules = pd.DataFrame({
         "Brand:Brand 1, Sport:Football, Grade:AA, Market:WDW, TimeBased:120",
         "Brand:Brand 1, Sport:Football, Grade:AA, Market:WDW, TimeBased:30",
         "Brand:Brand 1, Sport:Football, Grade:AA, Market:WDW, TimeBased:Live",
-        "Brand:Brand 1, Sport:Football, Grade:AA, Market:FGS",
-        "Brand:Brand 1, Sport:Football, Grade:AA, Market:FGS, TimeBased:Live",
+        "Brand:Brand 1, Sport:Football, Grade:AA, Market:First GS",
+        "Brand:Brand 1, Sport:Football, Grade:AA, Market:First GS, TimeBased:Live",
         "Brand:Brand 1, Sport:Football, Grade:AA, TimeBased:120",
         "Brand:Brand 1, Sport:Football, Grade:AA, TimeBased:30",
         "Brand:Brand 1, Sport:Football, Grade:AA, TimeBased:Live",
@@ -88,8 +88,8 @@ default_rules = pd.DataFrame({
         "Brand:Brand 1, Sport:Football, Market:WDW",
         "Brand:Brand 1, Sport:Football, Market:WDW, TimeBased:30",
         "Brand:Brand 1, Sport:Football, Market:WDW, TimeBased:Live",
-        "Brand:Brand 1, Sport:Football, Market:FGS",
-        "Brand:Brand 1, Sport:Football, Market:FGS, TimeBased:Live",
+        "Brand:Brand 1, Sport:Football, Market:First GS",
+        "Brand:Brand 1, Sport:Football, Market:First GS, TimeBased:Live",
         "Brand:Brand 1, Sport:Football",
         "Brand:Brand 1, Sport:Football, Competition:EPL, TimeBased:1440"
     ],

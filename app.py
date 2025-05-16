@@ -17,7 +17,7 @@ entity_options = {
     "Competition": ["NBA", "NFL", "La Liga", "EPL"],
     "Grade": ["A", "C", "AA", "AMF_NFL"],
     "Market": ["Market 3", "First GS", "WDW", "Win-Draw-Win", "Anytime TDS"],
-    "TimeBased": ["30", "150", "360", "480", "600", "1440", "2880", "4320", "8640", "Live", "Pre Live"],
+    "TimeBased": ["Live", "Pre Live", "30", "150", "360", "480", "600", "1440", "2880", "4320", "8640"],
     "Cohort": ["Cohort A", "Cohort B"]
 }
 
@@ -131,7 +131,7 @@ if st.button("▶️ Run Matching"):
         def compute_score(permutation):
             return sum(entity_weights.get(entity, 0) for entity, _ in map(extract_entity_value, permutation))
 
-        # Entity-aligned match: All specified entity:value pairs must match the query exactly
+        # Match only if each entity:value in the rule matches the query context exactly
         def matches_query(permutation):
             for entity, value in map(extract_entity_value, permutation):
                 if query_context.get(entity) != value:

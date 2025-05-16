@@ -28,7 +28,7 @@ default_query_context = {
     "Competition": "EPL",
     "Grade": "AA",
     "Market": "WDW",
-    "TimeBased": "120",
+    "TimeBased": "150",
     "Cohort": "Cohort A"
 }
 

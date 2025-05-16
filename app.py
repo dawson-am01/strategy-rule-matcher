@@ -73,8 +73,8 @@ default_rules = pd.DataFrame({
         "Brand:Brand 1, Sport:Football, Grade:AA, Market:WDW, TimeBased:120",
         "Brand:Brand 1, Sport:Football, Grade:AA, Market:WDW, TimeBased:30",
         "Brand:Brand 1, Sport:Football, Grade:AA, Market:WDW, TimeBased:Live",
-        "Brand:Brand 1, Sport:Football, Grade:AA, Market:First GS",
-        "Brand:Brand 1, Sport:Football, Grade:AA, Market:First GS, TimeBased:Live",
+        "Brand:Brand 1, Sport:Football, Grade:AA, Market:FGS",
+        "Brand:Brand 1, Sport:Football, Grade:AA, Market:FGS, TimeBased:Live",
         "Brand:Brand 1, Sport:Football, Grade:AA, TimeBased:120",
         "Brand:Brand 1, Sport:Football, Grade:AA, TimeBased:30",
         "Brand:Brand 1, Sport:Football, Grade:AA, TimeBased:Live",
@@ -88,18 +88,19 @@ default_rules = pd.DataFrame({
         "Brand:Brand 1, Sport:Football, Market:WDW",
         "Brand:Brand 1, Sport:Football, Market:WDW, TimeBased:30",
         "Brand:Brand 1, Sport:Football, Market:WDW, TimeBased:Live",
-        "Brand:Brand 1, Sport:Football, Market:First GS",
-        "Brand:Brand 1, Sport:Football, Market:First GS, TimeBased:Live",
+        "Brand:Brand 1, Sport:Football, Market:FGS",
+        "Brand:Brand 1, Sport:Football, Market:FGS, TimeBased:Live",
         "Brand:Brand 1, Sport:Football",
         "Brand:Brand 1, Sport:Football, Competition:EPL, TimeBased:1440"
     ],
     "Strategy": [
-        "3WAY_2", "3WAY_3", "3WAY_4", "3WAY_5", "3WAY_6", "3WAY_7", "3WAY_8", "3WAY_9",
-        "3WAY_10", "3WAY_11", "3WAY_12", "3WAY_13", "3WAY_14", "3WAY_15", "3WAY_16",
-        "3WAY_17", "3WAY_18", "3WAY_19", "3WAY_20", "3WAY_21", "3WAY_22", "3WAY_23",
-        "3WAY_24", "3WAY_25"
+        "3WAY_6", "3WAY_7", "3WAY_8", "3WAY_9", "3WAY_10", "3WAY_11", "3WAY_12",
+        "3WAY_13", "3WAY_14", "3WAY_15", "3WAY_16", "3WAY_17", "3WAY_18", "3WAY_19",
+        "3WAY_20", "3WAY_21", "3WAY_22", "3WAY_23", "3WAY_24", "3WAY_25",
+        "3WAY_26", "3WAY_27", "3WAY_28", "3WAY_29"
     ]
 })
+
 
 # --- Rule Editor ---
 st.subheader("📋 Define Your Rules")

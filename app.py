@@ -91,15 +91,27 @@ default_rules = pd.DataFrame({
         "Brand:Brand 1, Sport:Football, Market:First GS",
         "Brand:Brand 1, Sport:Football, Market:First GS, TimeBased:Live",
         "Brand:Brand 1, Sport:Football",
-        "Brand:Brand 1, Sport:Football, Competition:EPL, TimeBased:1440"
+        "Brand:Brand 1, Sport:Football, Competition:EPL, TimeBased:1440",
+        "Brand:Brand 1, Sport:American Football, Market:Anytime TDS, TimeBased:Pre Live",
+        "Brand:Brand 1, Sport:American Football, Market:Anytime TDS, TimeBased:Live",
+        "Brand:Brand 1, Sport:American Football, Competition:NFL, Market:Anytime TDS, TimeBased:Pre Live",
+        "Brand:Brand 1, Sport:American Football, Competition:NFL, Market:Anytime TDS, TimeBased:Live",
+        "Brand:Brand 1, Sport:American Football, Grade:AMF_NFL, Market:Anytime TDS, TimeBased:Pre Live",
+        "Brand:Brand 1, Sport:American Football, Grade:AMF_NFL, Market:Anytime TDS, TimeBased:600",
+        "Brand:Brand 1, Sport:American Football, Grade:AMF_NFL, Market:Anytime TDS, TimeBased:150",
+        "Brand:Brand 1, Sport:American Football, Grade:AMF_NFL, Market:Anytime TDS, TimeBased:Live"
     ],
     "Strategy": [
-        "3WAY_6", "3WAY_7", "3WAY_8", "3WAY_9", "3WAY_10", "3WAY_11", "3WAY_12",
-        "3WAY_13", "3WAY_14", "3WAY_15", "3WAY_16", "3WAY_17", "3WAY_18", "3WAY_19",
-        "3WAY_20", "3WAY_21", "3WAY_22", "3WAY_23", "3WAY_24", "3WAY_25",
-        "3WAY_26", "3WAY_27", "3WAY_28", "3WAY_29"
+        "strategy_001", "strategy_002", "strategy_003", "strategy_004", "strategy_005",
+        "strategy_006", "strategy_007", "strategy_008", "strategy_009", "strategy_010",
+        "strategy_011", "strategy_012", "strategy_013", "strategy_014", "strategy_015",
+        "strategy_016", "strategy_017", "strategy_018", "strategy_019", "strategy_020",
+        "strategy_021", "strategy_022", "strategy_023", "strategy_024", "strategy_025",
+        "strategy_025", "strategy_026", "strategy_026", "strategy_026", "strategy_027",
+        "strategy_028", "strategy_026"
     ]
 })
+
 
 
 # --- Rule Editor ---

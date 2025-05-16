@@ -106,9 +106,9 @@ default_rules = pd.DataFrame({
         "strategy_006", "strategy_007", "strategy_008", "strategy_009", "strategy_010",
         "strategy_011", "strategy_012", "strategy_013", "strategy_014", "strategy_015",
         "strategy_016", "strategy_017", "strategy_018", "strategy_019", "strategy_020",
-        "strategy_021", "strategy_022", "strategy_023", "strategy_024", "strategy_025",
-        "strategy_025", "strategy_026", "strategy_026", "strategy_026", "strategy_027",
-        "strategy_028", "strategy_026"
+        "strategy_021", "strategy_022", "strategy_023", "strategy_024", "strategy_025a",
+        "strategy_025b", "strategy_026a", "strategy_026b", "strategy_026c", "strategy_027",
+        "strategy_028", "strategy_026d"
     ]
 })
 
